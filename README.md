@@ -7,7 +7,7 @@ easily test a multi-bungee enviroment (using redis) with this docker compose
 # how to run
 ## prerequisites
 1. install docker
-2. make sure you completed the docker post-installation steps in order to prevent permission-issues
+2. make sure you completed the docker post-installation steps in order to prevent permission issues
 
 ## executing
 1. ``docker compose up``
@@ -29,6 +29,7 @@ additionally, all contents on .defaults will be copied to:
 - .defaults/backend > [all backends] backend/a && backend/b
 - .defaults/proxy > [all proxies] proxy/1 && proxy/2
 - .defaults/common > [all proxies] (proxy/1 && proxy/2) && [all backends] backend/a && backend/b
+
 you can use this folder if your proxies and/or backends should share some common plugins
 ## bundled plugins
 when running ``docker compose up``, the following plugins will be installed and configured:
