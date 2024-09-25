@@ -54,8 +54,8 @@ services:
       TYPE: "BUNGEECORD"
       CFG_ID: "proxy-1"
       CFG_MOTD: |
-      proxy-1* (:25565)
-      proxy-2  (:25566)
+        proxy-1* (:25565)
+        proxy-2  (:25566)
     volumes:
       - ./proxy/1:/server
   proxy-2:
@@ -72,8 +72,8 @@ services:
       TYPE: "BUNGEECORD"
       CFG_ID: "proxy-2"
       CFG_MOTD: |
-      proxy-1  (:25565)
-      proxy-2* (:25566)
+        proxy-1  (:25565)
+        proxy-2* (:25566)
     volumes:
       - ./proxy/2:/server
   backend-a:
