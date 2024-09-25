@@ -58,7 +58,7 @@ services:
       SERVER_NAME: "backend-a"
       ALLOW_NETHER: "false"
       GAMEMODE: "creative"
-      SPIGET_RESOURCES: "25391"
+      SPIGET_RESOURCES: "25391,9782"
       ONLINE_MODE: "FALSE"
     volumes:
       - ./server/a:/data
@@ -75,7 +75,7 @@ services:
       SERVER_NAME: "backend-a"
       ALLOW_NETHER: "false"
       GAMEMODE: "creative"
-      SPIGET_RESOURCES: "25391"
+      SPIGET_RESOURCES: "25391,9782"
       ONLINE_MODE: "FALSE"
     volumes:
       - ./server/b:/data
