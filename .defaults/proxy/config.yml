@@ -6,7 +6,9 @@ servers:
     address: backend-b:25565
     restricted: false
 listeners:
-- motd: "${CFG_MOTD}"
+- motd: |-
+    proxy-1${CFG_MOTD_1} (:25565)
+    proxy-2${CFG_MOTD_2} (:25566)
   priorities:
   - a
   - b

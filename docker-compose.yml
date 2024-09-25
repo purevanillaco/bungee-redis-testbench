@@ -55,9 +55,8 @@ services:
       ENV_VARIABLE_PREFIX: "CFG_"
       REPLACE_ENV_VARIABLES: "TRUE"
       CFG_ID: "proxy-1"
-      CFG_MOTD: |
-        proxy-1* (:25565)
-        proxy-2  (:25566)
+      CFG_MOTD_1: "*"
+      CFG_MOTD_2: " "
     volumes:
       - ./proxy/1:/server
   proxy-2:
@@ -75,9 +74,8 @@ services:
       ENV_VARIABLE_PREFIX: "CFG_"
       REPLACE_ENV_VARIABLES: "TRUE"
       CFG_ID: "proxy-2"
-      CFG_MOTD: |
-        proxy-1  (:25565)
-        proxy-2* (:25566)
+      CFG_MOTD_1: " "
+      CFG_MOTD_2: "*"
     volumes:
       - ./proxy/2:/server
   backend-a:
