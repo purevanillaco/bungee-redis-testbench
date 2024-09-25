@@ -29,9 +29,6 @@ services:
     environment:
       FORCE_REDOWNLOAD: "true"
       TYPE: "BUNGEECORD"
-      CFG_MOTD: |
-        proxy-1* (:25565)
-        proxy-2  (:25566)
     volumes:
       - ./proxy/1:/server
   proxy-2:
@@ -46,9 +43,6 @@ services:
     environment:
       FORCE_REDOWNLOAD: "true"
       TYPE: "BUNGEECORD"
-      CFG_MOTD: |
-        proxy-1  (:25565)
-        proxy-2* (:25566)
     volumes:
       - ./proxy/2:/server
   backend-a:
