@@ -52,6 +52,8 @@ services:
     environment:
       FORCE_REDOWNLOAD: "true"
       TYPE: "BUNGEECORD"
+      ENV_VARIABLE_PREFIX: "CFG_"
+      REPLACE_ENV_VARIABLES: "TRUE"
       CFG_ID: "proxy-1"
       CFG_MOTD: |
         proxy-1* (:25565)
@@ -70,6 +72,8 @@ services:
     environment:
       FORCE_REDOWNLOAD: "true"
       TYPE: "BUNGEECORD"
+      ENV_VARIABLE_PREFIX: "CFG_"
+      REPLACE_ENV_VARIABLES: "TRUE"
       CFG_ID: "proxy-2"
       CFG_MOTD: |
         proxy-1  (:25565)
