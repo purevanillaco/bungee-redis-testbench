@@ -1,6 +1,6 @@
 permissions:
   default:
-  - *
+  - "*"
 servers:
   a:
     motd: 'backend/a'
@@ -11,10 +11,10 @@ servers:
     address: backend-b:25565
     restricted: false
 listeners:
-  motd: 'proxy-1'
+- motd: 'proxy-1'
   priorities:
   - a
-  - b
+  - a
   bind_local_address: true
   max_players: 100
 ip_forward: true
