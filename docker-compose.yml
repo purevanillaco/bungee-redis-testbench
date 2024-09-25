@@ -1,0 +1,76 @@
+services:
+  redis:
+    hostname: redis
+    image: redis:latest
+    container_name: redis
+    restart: always
+    command: redis-server --appendonly yes --replica-read-only no --save 60 1 --loglevel warning
+    volumes:
+     - redis-data:/server
+  proxy-1:
+    depends_on:
+    - redis
+    hostname: proxy-1
+    image: itzg/mc-proxy
+    tty: true
+    stdin_open: true
+    environment:
+      FORCE_REDOWNLOAD: "true"
+      TYPE: "BUNGEECORD"
+      CFG_MOTD: |
+        proxy-1* (:25565)
+        proxy-2  (:25566)
+    volumes:
+      - ./proxy/1:/server
+  proxy-2:
+    depends_on:
+    - redis
+    hostname: proxy-2
+    image: itzg/mc-proxy
+    tty: true
+    stdin_open: true
+    environment:
+      FORCE_REDOWNLOAD: "true"
+      TYPE: "BUNGEECORD"
+      CFG_MOTD: |
+        proxy-1  (:25565)
+        proxy-2* (:25566)
+    volumes:
+      - ./proxy/2:/data
+  backend-a:
+    hostname: backend-a
+    image: itzg/minecraft-server
+    tty: true
+    stdin_open: true
+    environment:
+      TYPE: "PAPER"
+      VERSION: "latest"
+      EULA: "TRUE"
+      FORCE_REDOWNLOAD: "true"
+      SERVER_NAME: "backend-a"
+      ALLOW_NETHER: "false"
+      GAMEMODE: "creative"
+      SPIGET_RESOURCES: "25391"
+      ONLINE_MODE: "FALSE"
+    volumes:
+      - ./server/a:/data
+  backend-b:
+    hostname: backend-b
+    image: itzg/minecraft-server
+    tty: true
+    stdin_open: TRUE
+    environment:
+      TYPE: "PAPER"
+      VERSION: "latest"
+      EULA: "TRUE"
+      FORCE_REDOWNLOAD: "true"
+      SERVER_NAME: "backend-a"
+      ALLOW_NETHER: "false"
+      GAMEMODE: "creative"
+      SPIGET_RESOURCES: "25391"
+      ONLINE_MODE: "FALSE"
+    volumes:
+      - ./server/b:/data
+
+volumes:
+  redis-data:
