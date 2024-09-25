@@ -16,7 +16,7 @@ redis-password: ''
 max-redis-connections: 10
 useSSL: false
 network-id: main
-proxy-id: proxy-1
+proxy-id: ${CFG_ID}
 enable-jedis-pool-compatibility: false
 compatibility-max-connections: 3
 kick-when-online: true

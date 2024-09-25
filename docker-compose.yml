@@ -21,13 +21,13 @@ services:
       cp -r /proxy-plugins/proxy/* /proxy-plugins/2/ &&
       exit 0'
     volumes:
-      - ./defaults/backend:/proxy-plugins/backend
-      - ./defaults/proxy:/proxy-plugins/proxy
-      - ./defaults/common:/proxy-plugins/common
+      - ./.defaults/backend:/proxy-plugins/backend
+      - ./.defaults/proxy:/proxy-plugins/proxy
+      - ./.defaults/common:/proxy-plugins/common
       - ./proxy/1:/proxy-plugins/1
       - ./proxy/2:/proxy-plugins/2
-      - ./server/a:/proxy-plugins/a
-      - ./server/b:/proxy-plugins/b
+      - ./backend/a:/proxy-plugins/a
+      - ./backend/b:/proxy-plugins/b
     working_dir: /proxy-plugins
   redis:
     hostname: redis
@@ -52,6 +52,10 @@ services:
     environment:
       FORCE_REDOWNLOAD: "true"
       TYPE: "BUNGEECORD"
+      CFG_ID: "proxy-1"
+      CFG_MOTD: |
+      proxy-1* (:25565)
+      proxy-2  (:25566)
     volumes:
       - ./proxy/1:/server
   proxy-2:
@@ -66,6 +70,10 @@ services:
     environment:
       FORCE_REDOWNLOAD: "true"
       TYPE: "BUNGEECORD"
+      CFG_ID: "proxy-2"
+      CFG_MOTD: |
+      proxy-1  (:25565)
+      proxy-2* (:25566)
     volumes:
       - ./proxy/2:/server
   backend-a:
@@ -86,7 +94,7 @@ services:
       SPIGET_RESOURCES: "25391"
       ONLINE_MODE: "FALSE"
     volumes:
-      - ./server/a:/data
+      - ./backend/a:/data
   backend-b:
     depends_on:
     - redis
@@ -105,7 +113,7 @@ services:
       SPIGET_RESOURCES: "25391"
       ONLINE_MODE: "FALSE"
     volumes:
-      - ./server/b:/data
+      - ./backend/b:/data
 
 volumes:
   redis-data:
