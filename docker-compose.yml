@@ -1,6 +1,16 @@
 services:
+  download-redisbungee:
+    image: alpine:latest
+    entrypoint: /bin/sh -c 'apk add --no-cache curl jq && curl -L -o RedisBungee.jar $(curl -s https://api.github.com/repos/ProxioDev/ValioBungee/releases/latest | jq -r ".assets[] | select(.name | contains(\"-Bungee\")) | .browser_download_url") && cp *.jar ./1 && cp *.jar ./2 && exit 0'
+    volumes:
+      - ./proxy/1/plugins:/proxy-plugins/1
+      - ./proxy/2/plugins:/proxy-plugins/2
+    working_dir: /proxy-plugins
   redis:
     hostname: redis
+    depends_on:
+      download-redisbungee:
+        condition: service_completed_successfully
     image: redis:latest
     container_name: redis
     restart: always
