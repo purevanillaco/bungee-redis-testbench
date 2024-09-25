@@ -35,3 +35,4 @@ you can use this folder if your proxies and/or backends should share some common
 when running ``docker compose up``, the following plugins will be installed and configured:
 - BungeePerms: so all players are op-by-default (proxy+backend)
 - RedisBungee: obviously... (proxy)
+- VoidGen: so the backend's worlds are an empty void (backend) (via spiget)
