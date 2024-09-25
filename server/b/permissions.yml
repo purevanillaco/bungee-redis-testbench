@@ -1,4 +1,2 @@
-groups:
-  default:
-    permissions:
-      - '*'
+"*":
+  default: true
