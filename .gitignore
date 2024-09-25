@@ -1,2 +1,3 @@
-server/**
-proxy/**
+/defaults/**/*.jar
+/proxy
+/server
