@@ -11,14 +11,14 @@ services:
       jq -r ".artifacts[] | select(.fileName | contains(\"original\") | not) | .relativePath" | 
       xargs -I {} curl -O "https://ci.wea-ondara.net/job/BungeePerms/lastSuccessfulBuild/artifact/{}" &&
       cp *.jar ./common/plugins &&
-      cp -r /proxy-plugins/backend/ /proxy-plugins/a &&
-      cp -r /proxy-plugins/backend/ /proxy-plugins/b &&
-      cp -r /proxy-plugins/common/ /proxy-plugins/a &&
-      cp -r /proxy-plugins/common/ /proxy-plugins/b &&
-      cp -r /proxy-plugins/common/ /proxy-plugins/1 &&
-      cp -r /proxy-plugins/common/ /proxy-plugins/2 &&
-      cp -r /proxy-plugins/proxy/ /proxy-plugins/1 &&
-      cp -r /proxy-plugins/proxy/ /proxy-plugins/2 &&
+      cp -r /proxy-plugins/backend/* /proxy-plugins/a/ &&
+      cp -r /proxy-plugins/backend/* /proxy-plugins/b/ &&
+      cp -r /proxy-plugins/common/* /proxy-plugins/a/ &&
+      cp -r /proxy-plugins/common/* /proxy-plugins/b/ &&
+      cp -r /proxy-plugins/common/* /proxy-plugins/1/ &&
+      cp -r /proxy-plugins/common/* /proxy-plugins/2/ &&
+      cp -r /proxy-plugins/proxy/* /proxy-plugins/1/ &&
+      cp -r /proxy-plugins/proxy/* /proxy-plugins/2/ &&
       exit 0'
     volumes:
       - ./defaults/backend:/proxy-plugins/backend
