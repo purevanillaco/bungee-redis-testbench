@@ -1,0 +1,13 @@
+groups:
+  default:
+    rank: 1000
+    default: true
+    display: ''
+    prefix: ''
+    suffix: ''
+    inheritances: []
+    permissions:
+    - '*'
+    weight: 1000
+    ladder: default
+version: 1

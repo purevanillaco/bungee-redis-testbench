@@ -1,15 +1,33 @@
 services:
-  download-redisbungee:
+  download-plugins-apply-common:
     image: alpine:latest
-    entrypoint: /bin/sh -c 'apk add --no-cache curl jq && curl -L -o RedisBungee.jar $(curl -s https://api.github.com/repos/ProxioDev/ValioBungee/releases/latest | jq -r ".assets[] | select(.name | contains(\"-Bungee\")) | .browser_download_url") && cp *.jar ./1 && cp *.jar ./2 && exit 0'
+    entrypoint: |
+      /bin/sh -c 'apk add --no-cache curl curl jq && 
+      curl -L -O $(curl -s https://api.github.com/repos/ProxioDev/ValioBungee/releases/latest | 
+      jq -r ".assets[] | select(.name | contains(\"-Bungee\")) | .browser_download_url") && 
+      cp *.jar ./proxy/plugins && 
+      rm -r ./*.jar &&
+      curl -s "https://ci.wea-ondara.net/job/BungeePerms/lastSuccessfulBuild/api/json" |
+      jq -r ".artifacts[] | select(.fileName | contains(\"original\") | not) | .relativePath" | 
+      xargs -I {} curl -O "https://ci.wea-ondara.net/job/BungeePerms/lastSuccessfulBuild/artifact/{}" &&
+      cp *.jar ./common/plugins &&
+      cp -r /proxy-plugins/backend /proxy-plugins/a /proxy-plugins/b
+      cp -r /proxy-plugins/common /proxy-plugins/a /proxy-plugins/b /proxy-plugins/1 /proxy-plugins/2
+      cp -r /proxy-plugins/proxy /proxy-plugins/1 /proxy-plugins/1
+      exit 0'
     volumes:
+      - ./defaults/backend:/proxy-plugins/backend
+      - ./defaults/proxy:/proxy-plugins/proxy
+      - ./defaults/common:/proxy-plugins/common
       - ./proxy/1/plugins:/proxy-plugins/1
       - ./proxy/2/plugins:/proxy-plugins/2
+      - ./server/a/plugins:/proxy-plugins/a
+      - ./server/b/plugins:/proxy-plugins/b
     working_dir: /proxy-plugins
   redis:
     hostname: redis
     depends_on:
-      download-redisbungee:
+      download-plugins-apply-common:
         condition: service_completed_successfully
     image: redis:latest
     container_name: redis
@@ -46,6 +64,8 @@ services:
     volumes:
       - ./proxy/2:/server
   backend-a:
+    depends_on:
+    - redis
     hostname: backend-a
     image: itzg/minecraft-server
     tty: true
@@ -58,11 +78,13 @@ services:
       SERVER_NAME: "backend-a"
       ALLOW_NETHER: "false"
       GAMEMODE: "creative"
-      SPIGET_RESOURCES: "25391,9782"
+      SPIGET_RESOURCES: "25391"
       ONLINE_MODE: "FALSE"
     volumes:
       - ./server/a:/data
   backend-b:
+    depends_on:
+    - redis
     hostname: backend-b
     image: itzg/minecraft-server
     tty: true
@@ -75,7 +97,7 @@ services:
       SERVER_NAME: "backend-a"
       ALLOW_NETHER: "false"
       GAMEMODE: "creative"
-      SPIGET_RESOURCES: "25391,9782"
+      SPIGET_RESOURCES: "25391"
       ONLINE_MODE: "FALSE"
     volumes:
       - ./server/b:/data

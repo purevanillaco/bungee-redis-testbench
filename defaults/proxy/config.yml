@@ -1,0 +1,15 @@
+servers:
+  a:
+    address: backend-a:25565
+    restricted: false
+  b:
+    address: backend-b:25565
+    restricted: false
+listeners:
+- motd: |
+    proxy-1 (:25565)
+    proxy-2 (:25566)
+  priorities:
+  - a
+  - b
+ip_forward: true
