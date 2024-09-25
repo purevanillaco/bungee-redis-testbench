@@ -16,6 +16,5 @@ listeners:
   - a
   - b
   bind_local_address: true
-  host: 0.0.0.0:25565
   max_players: 100
 ip_forward: true

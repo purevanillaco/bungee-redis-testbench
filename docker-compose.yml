@@ -14,6 +14,8 @@ services:
     image: itzg/mc-proxy
     tty: true
     stdin_open: true
+    ports:
+      - "25565:25577"
     environment:
       FORCE_REDOWNLOAD: "true"
       TYPE: "BUNGEECORD"
@@ -29,6 +31,8 @@ services:
     image: itzg/mc-proxy
     tty: true
     stdin_open: true
+    ports:
+      - "25566:25577"
     environment:
       FORCE_REDOWNLOAD: "true"
       TYPE: "BUNGEECORD"
