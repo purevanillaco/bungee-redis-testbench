@@ -36,7 +36,7 @@ services:
         proxy-1  (:25565)
         proxy-2* (:25566)
     volumes:
-      - ./proxy/2:/data
+      - ./proxy/2:/server
   backend-a:
     hostname: backend-a
     image: itzg/minecraft-server
